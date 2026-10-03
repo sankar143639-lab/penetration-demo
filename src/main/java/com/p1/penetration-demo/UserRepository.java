@@ -1,4 +1,4 @@
-package com.p1.penetration-demo;
+package com.p1.penetrationdemo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
