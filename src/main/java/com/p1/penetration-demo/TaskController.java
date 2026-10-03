@@ -1,28 +1,30 @@
-package com.example.demo;
+package com.p1.penetration-demo;
 
-import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/tasks")
+public class TaskController {
 
-    private final UserRepository userRepository;
+    private final TaskProcessingService taskService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public TaskController(TaskProcessingService taskService) {
+        this.taskService = taskService;
     }
 
-    @GetMapping
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    @GetMapping("/start")
+    public String startTask() {
+        String taskId = UUID.randomUUID().toString();
+        taskService.executeBackgroundTask(taskId);
+        return "Task initiated in background with ID: " + taskId;
     }
 
-    @PostMapping
-    public UserEntity createUser(@Valid @RequestBody UserRequestDTO dto) {
-        UserEntity user = new UserEntity(dto.getName(), dto.getEmail());
-        return userRepository.save(user);
+    @GetMapping("/status")
+    public String status() {
+        return "Task Service is healthy and active.";
     }
 }
