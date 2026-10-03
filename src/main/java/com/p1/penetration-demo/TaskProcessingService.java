@@ -1,4 +1,4 @@
-package com.p1.penetration-demo;
+package com.p1.penetrationdemo;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
