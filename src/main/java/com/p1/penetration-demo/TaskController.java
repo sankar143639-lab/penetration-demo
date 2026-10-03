@@ -1,30 +1,28 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/tasks")
-public class TaskController {
+@RequestMapping("/api/users")
+public class UserController {
 
-    private final TaskProcessingService taskService;
+    private final UserRepository userRepository;
 
-    public TaskController(TaskProcessingService taskService) {
-        this.taskService = taskService;
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/start")
-    public String startTask() {
-        String taskId = UUID.randomUUID().toString();
-        taskService.executeBackgroundTask(taskId);
-        return "Task initiated in background with ID: " + taskId;
+    @GetMapping
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    @GetMapping("/status")
-    public String status() {
-        return "Task Service is healthy and active.";
+    @PostMapping
+    public UserEntity createUser(@Valid @RequestBody UserRequestDTO dto) {
+        UserEntity user = new UserEntity(dto.getName(), dto.getEmail());
+        return userRepository.save(user);
     }
 }
