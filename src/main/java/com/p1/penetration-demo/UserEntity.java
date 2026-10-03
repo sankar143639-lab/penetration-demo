@@ -1,4 +1,4 @@
-package com.p1.penetration-demo;
+package com.p1.penetrationdemo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
