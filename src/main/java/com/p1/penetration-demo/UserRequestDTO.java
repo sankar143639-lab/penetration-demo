@@ -1,4 +1,4 @@
-package com.p1.penetration-demo;
+package com.p1.penetrationdemo;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
